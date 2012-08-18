@@ -1,6 +1,12 @@
+(original author: John Ford http://github.com/jhford)
+
 This is a tool that can be used to determine current resolution,
 list available resolutions and set resolutions for active displays
-on Mac OS 10.6, and possibly above.  I have only tested 10.6.
+on Mac OS 10.6 and above. Tested on 10.6, 10.7 and 10.8. This tool
+can be used to set the 2880x1800 max resolution of a Retina Macbook
+Pro:
+
+    $screenresolution set 2880x1800x32@0
 
 I used clang for development, but the code seems to compile
 just fine with gcc.  The code might not be as well layed out
@@ -11,7 +17,7 @@ Build+Install
 Running the following commands in Terminal.app will result in 
 dmg with a pkg file being created if the system has Xcode 4.
     
-    git clone github.com:jhford/screenresolution
+    git clone github.com:shazron/screenresolution
     cd screenresolution
     make dmg
 
@@ -70,6 +76,10 @@ there is a keyword 'skip' which can be subsituted for a resolution.
 This keyword will cause the first display to be skipped.  If you
 specify more resolutions than you have active screens, the extra
 resolutions will be ignored.
+
+Note that to set a resolution, you will need to use the exact string
+used for the mode, the modes might be suffixed with "@[number]" where
+[number] is the number of the display, starting at index 0.
 
 Example 1:
     This example works with one or more screens
