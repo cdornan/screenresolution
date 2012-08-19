@@ -24,12 +24,18 @@ build: screenresolution
 screenresolution: screenresolution32 screenresolution64
 	$(LIPO) -arch i386 screenresolution32 -arch x86_64 screenresolution64 \
 		-create -output screenresolution
+		
+%.o32: %.c version.h screenresolution.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -m32 -o $@ $<
 
-screenresolution32: main.c version.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) -framework Foundation -framework ApplicationServices $< -m32 -o $@
+%.o64: %.c version.h screenresolution.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -m64 -o $@ $<
 
-screenresolution64: main.c version.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) -framework Foundation -framework ApplicationServices $< -m64 -o $@
+screenresolution32: main.o32 screenresolution.o32
+	$(CC) $(CPPFLAGS) $(CFLAGS) -framework Foundation -framework ApplicationServices $^ -m32 -o $@
+
+screenresolution64: main.o64 screenresolution.o64
+	$(CC) $(CPPFLAGS) $(CFLAGS) -framework Foundation -framework ApplicationServices $^ -m64 -o $@
 
 version.h:
 	sed -e "s/@VERSION@/\"$(VERSION)\"/" < version-tmpl.h > version.h
@@ -37,7 +43,7 @@ version.h:
 clean:
 	rm -f screenresolution screenresolution32 screenresolution64 \
 		screenresolution-$(VERSION).pkg screenresolution-$(VERSION).dmg \
-		version.h
+		version.h *.o32 *.o64 *.o
 	rm -rf pkgroot dmgroot
 
 reallyclean: clean
