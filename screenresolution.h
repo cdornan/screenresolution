@@ -19,7 +19,6 @@
  */
 
 #include <ApplicationServices/ApplicationServices.h>
-#include "version.h"
 
 // Number of modes to list per line.
 #define MODES_PER_LINE 3

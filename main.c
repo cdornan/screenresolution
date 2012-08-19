@@ -19,7 +19,8 @@
  */
 
 #include "screenresolution.h"
-	 
+#include "version.h"
+	 	 
 int main(int argc, const char *argv[]) {
     // http://developer.apple.com/library/IOs/#documentation/CoreFoundation/Conceptual/CFStrings/Articles/MutableStrings.html
     int i;
