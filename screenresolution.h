@@ -18,12 +18,7 @@
  * 02110-1301, USA.
  */
 
-<<<<<<< HEAD
-#include <ApplicationServices/ApplicationServices.h>
-=======
 #import <ApplicationServices/ApplicationServices.h>
-
->>>>>>> refs/heads/preference-pane
 
 // Number of modes to list per line.
 #define MODES_PER_LINE 3

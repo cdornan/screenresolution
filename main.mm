@@ -21,13 +21,8 @@
 #import <Foundation/Foundation.h>	 
 #include "screenresolution.h"
 #include "version.h"
-<<<<<<< HEAD:main.c
-	 	 
-int main(int argc, const char *argv[]) {
-=======
 
 int main (int argc, const char *argv[]) {
->>>>>>> refs/heads/preference-pane:main.mm
     // http://developer.apple.com/library/IOs/#documentation/CoreFoundation/Conceptual/CFStrings/Articles/MutableStrings.html
     int i;
     CFMutableStringRef args = CFStringCreateMutable(NULL, 0);
