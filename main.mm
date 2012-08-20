@@ -18,10 +18,16 @@
  * 02110-1301, USA.
  */
 
+#import <Foundation/Foundation.h>	 
 #include "screenresolution.h"
 #include "version.h"
+<<<<<<< HEAD:main.c
 	 	 
 int main(int argc, const char *argv[]) {
+=======
+
+int main (int argc, const char *argv[]) {
+>>>>>>> refs/heads/preference-pane:main.mm
     // http://developer.apple.com/library/IOs/#documentation/CoreFoundation/Conceptual/CFStrings/Articles/MutableStrings.html
     int i;
     CFMutableStringRef args = CFStringCreateMutable(NULL, 0);
@@ -33,7 +39,7 @@ int main(int argc, const char *argv[]) {
         CFStringAppend(args, CFSTR(" "));
     }
     // This has security implications.  Will look at that later
-    NSLog(CFSTR("%@"), args);
+    NSLog(@"%@", args);
     unsigned int exitcode = 0;
 
     if (argc > 1) {
@@ -46,18 +52,18 @@ int main(int argc, const char *argv[]) {
 
         rc = CGGetActiveDisplayList(0, NULL, &activeDisplayCount);
         if (rc != kCGErrorSuccess) {
-            NSLog(CFSTR("%s"), "Error: failed to get list of active displays");
+            NSLog(@"%@", @"Error: failed to get list of active displays");
             return 1;
         }
         // Allocate storage for the next CGGetActiveDisplayList call
         activeDisplays = (CGDirectDisplayID *) malloc(activeDisplayCount * sizeof(CGDirectDisplayID));
         if (activeDisplays == NULL) {
-            NSLog(CFSTR("s"), "Error: could not allocate memory for display list");
+            NSLog(@"%@", @"Error: could not allocate memory for display list");
             return 1;
         }
         rc = CGGetActiveDisplayList(activeDisplayCount, activeDisplays, &displayCount);
         if (rc != kCGErrorSuccess) {
-            NSLog(CFSTR("%s"), "Error: failed to get list of active displays");
+            NSLog(@"%@", @"Error: failed to get list of active displays");
             return 1;
         }
 
@@ -105,19 +111,19 @@ int main(int argc, const char *argv[]) {
                 printf("screenresolution version %s\nLicensed under GPLv2\n", VERSION);
                 keepgoing = 0;
             } else {
-                NSLog(CFSTR("I'm sorry %s. I'm afraid I can't do that"), getlogin());
+                NSLog(@"I'm sorry %@. I'm afraid I can't do that", [NSString stringWithCString:getlogin() encoding:NSUTF8StringEncoding]);
                 // Send help information to stderr
-                NSLog(CFSTR("%s"), "    Error: unable to copy current display mode\n\n");
-                NSLog(CFSTR("    screenresolution version %s -- Licensed under GPLv2\n\n\n"), VERSION);
-                NSLog(CFSTR("%s"), "     usage: screenresolution [get]  - Show the resolution of all active displays");
-                NSLog(CFSTR("%s"), "            screenresolution [list] - Show available resolutions of all active displays");
-                NSLog(CFSTR("%s"), "            screenresolution [skip] [display1resolution] [display2resolution]");
-                NSLog(CFSTR("%s"), "                                    - Sets display resolution and refresh rate");
-                NSLog(CFSTR("%s"), "            screenresolution -version - Displays version information for screenresolution");
-                NSLog(CFSTR("%s"), "            screenresolution -help    - Displays this help information\n\n");
-                NSLog(CFSTR("%s"), "     examples: screenresolution 800x600x32            - Sets main display to 800x600x32");
-                NSLog(CFSTR("%s"), "               screenresolution 800x600x32 800x600x32 - Sets both displays to 800x600x32");
-                NSLog(CFSTR("%s"), "               screenresolution skip 800x600x32       - Sets second display to 800x600x32\n\n");
+                NSLog(@"%@", @"    Error: unable to copy current display mode\n\n");
+                NSLog(@"    screenresolution version %@ -- Licensed under GPLv2\n\n\n", [NSString stringWithCString:VERSION encoding:NSUTF8StringEncoding]);
+                NSLog(@"%@", @"     usage: screenresolution [get]  - Show the resolution of all active displays");
+                NSLog(@"%@", @"            screenresolution [list] - Show available resolutions of all active displays");
+                NSLog(@"%@", @"            screenresolution [skip] [display1resolution] [display2resolution]");
+                NSLog(@"%@", @"                                    - Sets display resolution and refresh rate");
+                NSLog(@"%@", @"            screenresolution -version - Displays version information for screenresolution");
+                NSLog(@"%@", @"            screenresolution -help    - Displays this help information\n\n");
+                NSLog(@"%@", @"     examples: screenresolution set 800x600x32            - Sets main display to 800x600x32");
+                NSLog(@"%@", @"               screenresolution set 800x600x32 800x600x32 - Sets both displays to 800x600x32");
+                NSLog(@"%@", @"               screenresolution skip 800x600x32       - Sets second display to 800x600x32\n\n");
                 exitcode++;
                 keepgoing = 0;
             }
@@ -125,7 +131,7 @@ int main(int argc, const char *argv[]) {
         free(activeDisplays);
         activeDisplays = NULL;
     } else {
-        NSLog(CFSTR("%s"), "Incorrect command line");
+        NSLog(@"%@", @"Incorrect command line");
         exitcode++;
     }
     return exitcode > 0;

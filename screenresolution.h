@@ -18,7 +18,12 @@
  * 02110-1301, USA.
  */
 
+<<<<<<< HEAD
 #include <ApplicationServices/ApplicationServices.h>
+=======
+#import <ApplicationServices/ApplicationServices.h>
+
+>>>>>>> refs/heads/preference-pane
 
 // Number of modes to list per line.
 #define MODES_PER_LINE 3
@@ -33,14 +38,21 @@ struct config {
     double r; // refresh rate
 };
 
+
+#if __cplusplus
+extern "C" {
+#endif
+
 unsigned int setDisplayToMode(CGDirectDisplayID display, CGDisplayModeRef mode);
 unsigned int configureDisplay(CGDirectDisplayID display,
                               struct config *config,
                               int displayNum);
+NSString* getCurrentModeString(CGDisplayModeRef displayModeRef, int displayNum);
 unsigned int listCurrentMode(CGDirectDisplayID display, int displayNum);
 unsigned int listAvailableModes(CGDirectDisplayID display, int displayNum);
 unsigned int parseStringConfig(const char *string, struct config *out);
 size_t bitDepth(CGDisplayModeRef mode);
 
-// http://stackoverflow.com/questions/3060121/core-foundation-equivalent-for-nslog/3062319#3062319
-void NSLog(CFStringRef format, ...);
+#if __cplusplus
+}
+#endif

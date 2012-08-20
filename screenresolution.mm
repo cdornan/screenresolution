@@ -18,6 +18,7 @@
  * 02110-1301, USA.
  */
 
+#import <Foundation/Foundation.h>
 #include "screenresolution.h"
 	 
  size_t bitDepth(CGDisplayModeRef mode) {
@@ -48,7 +49,7 @@
      unsigned int returncode = 1;
      CFArrayRef allModes = CGDisplayCopyAllDisplayModes(display, NULL);
      if (allModes == NULL) {
-         NSLog(CFSTR("Error: failed trying to look up modes for display %u"), displayNum);
+         NSLog(@"Error: failed trying to look up modes for display %u", displayNum);
      }
 
      CGDisplayModeRef newMode = NULL;
@@ -75,10 +76,10 @@
      }
      CFRelease(allModes);
      if (newMode != NULL) {
-         NSLog(CFSTR("set mode on display %u to %ux%ux%u@%.0f"), displayNum, pw, ph, pd, pr);
+         NSLog(@"set mode on display %u to %zux%zux%zu@%.0f", displayNum, pw, ph, pd, pr);
          setDisplayToMode(display,newMode);
      } else {
-         NSLog(CFSTR("Error: mode %ux%ux%u@%f not available on display %u"), 
+         NSLog(@"Error: mode %zux%zux%zu@%f not available on display %u",
                  config->w, config->h, config->d, config->r, displayNum);
          returncode = 0;
      }
@@ -90,37 +91,49 @@
      CGDisplayConfigRef config;
      rc = CGBeginDisplayConfiguration(&config);
      if (rc != kCGErrorSuccess) {
-         NSLog(CFSTR("Error: failed CGBeginDisplayConfiguration err(%u)"), rc);
+         NSLog(@"Error: failed CGBeginDisplayConfiguration err(%u)", rc);
          return 0;
      }
      rc = CGConfigureDisplayWithDisplayMode(config, display, mode, NULL);
      if (rc != kCGErrorSuccess) {
-         NSLog(CFSTR("Error: failed CGConfigureDisplayWithDisplayMode err(%u)"), rc);
+         NSLog(@"Error: failed CGConfigureDisplayWithDisplayMode err(%u)", rc);
          return 0;
      }
      rc = CGCompleteDisplayConfiguration(config, kCGConfigureForSession);
      if (rc != kCGErrorSuccess) {
-         NSLog(CFSTR("Error: failed CGCompleteDisplayConfiguration err(%u)"), rc);        
+         NSLog(@"Error: failed CGCompleteDisplayConfiguration err(%u)", rc);
          return 0;
      }
      return 1;
  }
 
- unsigned int listCurrentMode(CGDirectDisplayID display, int displayNum) {
-     unsigned int returncode = 1;
-     CGDisplayModeRef currentMode = CGDisplayCopyDisplayMode(display);
-     if (currentMode == NULL) {
-         NSLog(CFSTR("%s"), "Error: unable to copy current display mode");
-         returncode = 0;
+ NSString* getCurrentModeString(CGDisplayModeRef displayModeRef, int displayNum) {
+     if (displayModeRef == NULL) {
+         NSLog(@"%@", @"Error: unable to copy current display mode");
+         return nil;
      }
-     NSLog(CFSTR("Display %d: %ux%ux%u@%.0f"),
-            displayNum,
-            CGDisplayModeGetWidth(currentMode),
-            CGDisplayModeGetHeight(currentMode),
-            bitDepth(currentMode),
-            CGDisplayModeGetRefreshRate(currentMode));
+     NSString* str = [NSString stringWithFormat:@"%zux%zux%zu@%.0f",
+           CGDisplayModeGetWidth(displayModeRef),
+           CGDisplayModeGetHeight(displayModeRef),
+           bitDepth(displayModeRef),
+           CGDisplayModeGetRefreshRate(displayModeRef)];
+     
+     return str;
+ }
+
+ unsigned int listCurrentMode(CGDirectDisplayID display, int displayNum) {
+     
+     CGDisplayModeRef currentMode = CGDisplayCopyDisplayMode(display);
+     NSString* str = getCurrentModeString(currentMode, displayNum);
      CGDisplayModeRelease(currentMode);
-     return returncode;
+
+     if (str == nil) {
+         return 0;
+     } else {
+         NSLog(@"Display %d: %@", displayNum, str);
+     }
+     
+     return 1;
  }
 
  unsigned int listAvailableModes(CGDirectDisplayID display, int displayNum) {
@@ -144,13 +157,8 @@
          } else {
              printf("\t");
          }
-         char modestr [50];
-         sprintf(modestr, "%lux%lux%lu@%.0f",
-                CGDisplayModeGetWidth(mode),
-                CGDisplayModeGetHeight(mode),
-                bitDepth(mode),
-                CGDisplayModeGetRefreshRate(mode));
-         printf("%-20s ", modestr);
+         NSString* modestr = getCurrentModeString(mode, displayNum);
+         NSLog(@"%@", modestr);
          if (i % MODES_PER_LINE == MODES_PER_LINE - 1) {
              printf("\n");
          }
@@ -198,7 +206,7 @@
      int numConverted = sscanf(string, "%lux%lux%lu@%lf", &w, &h, &d, &r);
      if (numConverted != 4) {
          rc = 0;
-         NSLog(CFSTR("Error: the mode '%s' couldn't be parsed"), string);
+         NSLog(@"Error: the mode '%@' couldn't be parsed", [NSString stringWithCString:string encoding:NSUTF8StringEncoding]);
      } else {
          out->w = w;
          out->h = h;
