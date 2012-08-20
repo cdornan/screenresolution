@@ -111,7 +111,7 @@ void MyDisplayReconfigurationCallBack (
     [self updateRetinaConfig];
     buttonSetMaxRetinaResolution.title = [NSString stringWithFormat:NSLocalizedString(@"set maximum %zux%zu resolution", nil), retinaConfig.current.w, retinaConfig.current.h];
     
-    if (!self.retinaConfig.isConfigurable) {
+    if (self.retinaConfig.isConfigurable) {
         [labelWarning setHidden:YES];
         [buttonSetMaxRetinaResolution setHidden:NO];
         [buttonSetMaxRetinaResolution setState:self.retinaConfig.isEnabled];
