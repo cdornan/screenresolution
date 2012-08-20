@@ -12,14 +12,13 @@ PREFIX=/usr/local
 
 ORIG_RES=1920x1200x32
 TEST_RES=800x600x32
-
 VERSION=1.6
 
 CC=clang
 LIPO=lipo
 PACKAGE_MAKER=/Developer/usr/bin/packagemaker
 
-build: screenresolution
+build: screenresolution prefpane
 
 screenresolution: screenresolution32 screenresolution64
 	$(LIPO) -arch i386 screenresolution32 -arch x86_64 screenresolution64 \
@@ -44,6 +43,7 @@ clean:
 	rm -f screenresolution screenresolution32 screenresolution64 \
 		screenresolution-$(VERSION).pkg screenresolution-$(VERSION).dmg \
 		version.h *.o32 *.o64 *.o
+	rm -rf ScreenResolution.prefPane
 	rm -rf pkgroot dmgroot
 
 reallyclean: clean
@@ -81,6 +81,9 @@ install: screenresolution
 	mkdir -p $(DESTDIR)/$(PREFIX)/bin
 	install -s -m 0755 screenresolution \
 		$(DESTDIR)/$(PREFIX)/bin/
+
+prefpane: screenresolution
+	xcodebuild -project ScreenResolutionPreferencePane/ScreenResolutionPreferencePane.xcodeproj clean build TARGET_BUILD_DIR=".."
 
 pkg: screenresolution
 	mkdir -p pkgroot/$(PREFIX)/bin
