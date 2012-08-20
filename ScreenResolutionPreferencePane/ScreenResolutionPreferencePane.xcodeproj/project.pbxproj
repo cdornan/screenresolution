@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3059AC3815E0B4E400E454C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3059AC3715E0B4E400E454C2 /* Cocoa.framework */; };
 		3059AC3A15E0B4E400E454C2 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3059AC3915E0B4E400E454C2 /* PreferencePanes.framework */; };
 		3059AC4415E0B4E400E454C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3059AC4215E0B4E400E454C2 /* InfoPlist.strings */; };
 		3059AC4815E0B4E400E454C2 /* ScreenResolutionPreferencePane.m in Sources */ = {isa = PBXBuildFile; fileRef = 3059AC4715E0B4E400E454C2 /* ScreenResolutionPreferencePane.m */; };
 		3059AC4D15E0B4E400E454C2 /* ScreenResolutionPreferencePane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3059AC4B15E0B4E400E454C2 /* ScreenResolutionPreferencePane.xib */; };
 		3059AC5415E0BD6C00E454C2 /* ScreenResolutionPreferencePane.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3059AC5315E0BD6C00E454C2 /* ScreenResolutionPreferencePane.icns */; };
+		3059AC6515E0FFC900E454C2 /* screenresolution.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3059AC6315E0FFC900E454C2 /* screenresolution.mm */; };
+		3059AC6615E0FFC900E454C2 /* screenresolution.h in Headers */ = {isa = PBXBuildFile; fileRef = 3059AC6415E0FFC900E454C2 /* screenresolution.h */; };
+		3059AC6815E100CC00E454C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3059AC3E15E0B4E400E454C2 /* Foundation.framework */; };
+		3059AC6A15E100D900E454C2 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3059AC6915E100D900E454C2 /* ApplicationServices.framework */; };
+		3059AC6E15E2235900E454C2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3059AC3C15E0B4E400E454C2 /* AppKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +33,9 @@
 		3059AC4715E0B4E400E454C2 /* ScreenResolutionPreferencePane.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScreenResolutionPreferencePane.m; sourceTree = "<group>"; };
 		3059AC4C15E0B4E400E454C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ScreenResolutionPreferencePane.xib; sourceTree = "<group>"; };
 		3059AC5315E0BD6C00E454C2 /* ScreenResolutionPreferencePane.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ScreenResolutionPreferencePane.icns; sourceTree = "<group>"; };
+		3059AC6315E0FFC900E454C2 /* screenresolution.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = screenresolution.mm; path = ../../screenresolution.mm; sourceTree = "<group>"; };
+		3059AC6415E0FFC900E454C2 /* screenresolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = screenresolution.h; path = ../../screenresolution.h; sourceTree = "<group>"; };
+		3059AC6915E100D900E454C2 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +43,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3059AC3815E0B4E400E454C2 /* Cocoa.framework in Frameworks */,
+				3059AC6E15E2235900E454C2 /* AppKit.framework in Frameworks */,
+				3059AC6A15E100D900E454C2 /* ApplicationServices.framework in Frameworks */,
+				3059AC6815E100CC00E454C2 /* Foundation.framework in Frameworks */,
 				3059AC3A15E0B4E400E454C2 /* PreferencePanes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,6 +56,7 @@
 		3059AC2715E0B4E400E454C2 = {
 			isa = PBXGroup;
 			children = (
+				3059AC6915E100D900E454C2 /* ApplicationServices.framework */,
 				3059AC3F15E0B4E400E454C2 /* ScreenResolutionPreferencePane */,
 				3059AC3615E0B4E400E454C2 /* Frameworks */,
 				3059AC3515E0B4E400E454C2 /* Products */,
@@ -84,6 +94,8 @@
 		3059AC3F15E0B4E400E454C2 /* ScreenResolutionPreferencePane */ = {
 			isa = PBXGroup;
 			children = (
+				3059AC6315E0FFC900E454C2 /* screenresolution.mm */,
+				3059AC6415E0FFC900E454C2 /* screenresolution.h */,
 				3059AC5315E0BD6C00E454C2 /* ScreenResolutionPreferencePane.icns */,
 				3059AC4615E0B4E400E454C2 /* ScreenResolutionPreferencePane.h */,
 				3059AC4715E0B4E400E454C2 /* ScreenResolutionPreferencePane.m */,
@@ -110,6 +122,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3059AC6615E0FFC900E454C2 /* screenresolution.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3059AC4815E0B4E400E454C2 /* ScreenResolutionPreferencePane.m in Sources */,
+				3059AC6515E0FFC900E454C2 /* screenresolution.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +325,7 @@
 				3059AC5215E0B4E400E454C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

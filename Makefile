@@ -25,10 +25,10 @@ screenresolution: screenresolution32 screenresolution64
 	$(LIPO) -arch i386 screenresolution32 -arch x86_64 screenresolution64 \
 		-create -output screenresolution
 		
-%.o32: %.c version.h screenresolution.h
+%.o32: %.mm version.h screenresolution.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -m32 -o $@ $<
 
-%.o64: %.c version.h screenresolution.h
+%.o64: %.mm version.h screenresolution.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -m64 -o $@ $<
 
 screenresolution32: main.o32 screenresolution.o32
