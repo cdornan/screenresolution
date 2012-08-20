@@ -23,11 +23,11 @@ void MyDisplayReconfigurationCallBack (
 }
 
 @interface NSAttributedString (Hyperlink)
-+(id)hyperlinkFromString:(NSString*)inString withURL:(NSURL*)aURL;
++ (id) hyperlinkFromString:(NSString*)inString withURL:(NSURL*)aURL;
 @end
 
 @implementation NSAttributedString (Hyperlink)
-+(id)hyperlinkFromString:(NSString*)inString withURL:(NSURL*)aURL
++ (id) hyperlinkFromString:(NSString*)inString withURL:(NSURL*)aURL
 {
     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString: inString];
     NSRange range = NSMakeRange(0, [attrString length]);
@@ -109,11 +109,13 @@ void MyDisplayReconfigurationCallBack (
     [self setHyperlink:labelLink.stringValue withTextField:labelLink andCaption:labelLink.stringValue];
     
     [self updateRetinaConfig];
-    buttonSetMaxRetinaResolution.title = [NSString stringWithFormat:NSLocalizedString(@"set maximum %zux%zu resolution", nil), retinaConfig.current.w, retinaConfig.current.h];
+    buttonSetMaxRetinaResolution.title = self.retinaConfig.isConfigurable? 
+		[NSString stringWithFormat:NSLocalizedString(@"set maximum %zux%zu resolution", nil), retinaConfig.current.w, retinaConfig.current.h] :
+		NSLocalizedString(@"set maximum resolution", nil);
     
     if (self.retinaConfig.isConfigurable) {
         [labelWarning setHidden:YES];
-        [buttonSetMaxRetinaResolution setHidden:NO];
+        [buttonSetMaxRetinaResolution setEnabled:YES];
         [buttonSetMaxRetinaResolution setState:self.retinaConfig.isEnabled];
     } else {
         [labelWarning setHidden:NO];
