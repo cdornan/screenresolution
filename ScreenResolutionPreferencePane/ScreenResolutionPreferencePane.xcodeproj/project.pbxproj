@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3059AC3415E0B4E400E454C2 /* Screen Resolution.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Screen Resolution.prefPane"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3059AC3415E0B4E400E454C2 /* ScreenResolution.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScreenResolution.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		3059AC3715E0B4E400E454C2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3059AC3915E0B4E400E454C2 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = System/Library/Frameworks/PreferencePanes.framework; sourceTree = SDKROOT; };
 		3059AC3C15E0B4E400E454C2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -66,7 +66,7 @@
 		3059AC3515E0B4E400E454C2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3059AC3415E0B4E400E454C2 /* Screen Resolution.prefPane */,
+				3059AC3415E0B4E400E454C2 /* ScreenResolution.prefPane */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,7 +145,7 @@
 			);
 			name = ScreenResolutionPreferencePane;
 			productName = ScreenResolutionPreferencePane;
-			productReference = 3059AC3415E0B4E400E454C2 /* Screen Resolution.prefPane */;
+			productReference = 3059AC3415E0B4E400E454C2 /* ScreenResolution.prefPane */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -288,7 +288,7 @@
 				GCC_PREFIX_HEADER = "ScreenResolutionPreferencePane/ScreenResolutionPreferencePane-Prefix.pch";
 				INFOPLIST_FILE = "ScreenResolutionPreferencePane/ScreenResolutionPreferencePane-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
-				PRODUCT_NAME = "Screen Resolution";
+				PRODUCT_NAME = ScreenResolution;
 				WRAPPER_EXTENSION = prefPane;
 			};
 			name = Debug;
@@ -301,7 +301,7 @@
 				GCC_PREFIX_HEADER = "ScreenResolutionPreferencePane/ScreenResolutionPreferencePane-Prefix.pch";
 				INFOPLIST_FILE = "ScreenResolutionPreferencePane/ScreenResolutionPreferencePane-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
-				PRODUCT_NAME = "Screen Resolution";
+				PRODUCT_NAME = ScreenResolution;
 				WRAPPER_EXTENSION = prefPane;
 			};
 			name = Release;
