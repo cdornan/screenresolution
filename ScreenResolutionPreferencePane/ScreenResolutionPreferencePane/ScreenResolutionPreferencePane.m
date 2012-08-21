@@ -64,12 +64,6 @@ void MyDisplayReconfigurationCallBack (
 
 - (void) dealloc
 {
-    if (self.displayMode != NULL) {
-        CGDisplayModeRelease(self.displayMode);
-    }
-    if (self.scaledMode != NULL) {
-        CGDisplayModeRelease(self.scaledMode);
-    }
     [super dealloc];
 }
 
@@ -146,23 +140,23 @@ void MyDisplayReconfigurationCallBack (
     uint32_t activeDisplayCount = 0;
     CGDirectDisplayID *activeDisplays = NULL;
 
-    self.retinaConfig = [MaxRetinaConfig new];
+    self.retinaConfig = [[MaxRetinaConfig new] autorelease];
 
     rc = CGGetActiveDisplayList(0, NULL, &activeDisplayCount);
     if (rc != kCGErrorSuccess) {
         labelWarning.stringValue = NSLocalizedString(@"Error: failed to get list of active displays", nil);
-        return;
+        goto end;
     }
     // Allocate storage for the next CGGetActiveDisplayList call
     activeDisplays = (CGDirectDisplayID *) malloc(activeDisplayCount * sizeof(CGDirectDisplayID));
     if (activeDisplays == NULL) {
         labelWarning.stringValue = NSLocalizedString(@"Error: could not allocate memory for display list", nil);
-        return;
+        goto end;
     }
     rc = CGGetActiveDisplayList(activeDisplayCount, activeDisplays, &displayCount);
     if (rc != kCGErrorSuccess) {
         labelWarning.stringValue = NSLocalizedString(@"Error: failed to get list of active displays", nil);
-        return;
+        goto end;
     }
     
     for (int i=0; i < activeDisplayCount; ++i) {
@@ -184,13 +178,13 @@ void MyDisplayReconfigurationCallBack (
         
         CFArrayRef allModes = CGDisplayCopyAllDisplayModes(activeDisplays[i], NULL);
         if (allModes == NULL) {
-            return;
+            goto end;
         }
         
         size_t allModesCount = CFArrayGetCount(allModes);
         for (int j = 0; j < allModesCount; j++) {
             CGDisplayModeRef currentMode = (CGDisplayModeRef) CFArrayGetValueAtIndex(allModes, j);
-            
+
             struct config config;
             config.w = CGDisplayModeGetWidth(currentMode);
             config.h = CGDisplayModeGetHeight(currentMode);
@@ -200,16 +194,21 @@ void MyDisplayReconfigurationCallBack (
             if (config.w == MAX_RETINA_WIDTH && config.h == MAX_RETINA_HEIGHT && config.d == MAX_RETINA_BIT_DEPTH) {
                 self.retinaConfig.current = config;
                 self.retinaConfig.configurable = YES;
-                self.retinaConfig.displayMode = CGDisplayModeRetain(currentMode);
+                self.retinaConfig.displayMode = currentMode;
                 self.retinaConfig.displayId = activeDisplays[i];
             }
             
             if (config.w == (MAX_RETINA_WIDTH/2) && config.h == (MAX_RETINA_HEIGHT/2) && config.d == MAX_RETINA_BIT_DEPTH) {
-                self.retinaConfig.scaledMode = CGDisplayModeRetain(currentMode);
+                self.retinaConfig.scaledMode = currentMode;
             }
 
             //NSLog(@"w: %zu h: %zu d: %zu r: %f", config.w, config.h, config.d, config.r);
         }
+        CFRelease(allModes);
+    }
+end:
+    if (activeDisplays != NULL) {
+        free(activeDisplays);
     }
 }
 

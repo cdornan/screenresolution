@@ -193,7 +193,9 @@
                  ioflags & kDisplayModeValidForMirroringFlag ?1:0 );
  #endif
      }
-     CFRelease(allModes);
+     if (allModes != NULL) {
+         CFRelease(allModes);
+     }
      return returncode;
  }
 
